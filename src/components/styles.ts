@@ -65,7 +65,6 @@ export const cardStyles = css`
     display: block;
   }
 
-  /* Dark overlay for better text contrast */
   .weather-card::before {
     content: '';
     position: absolute;
@@ -85,7 +84,7 @@ export const cardStyles = css`
   .content {
     position: relative;
     z-index: 1;
-    padding: 20px 24px;
+    padding: 16px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -101,6 +100,7 @@ export const cardStyles = css`
     justify-content: space-between;
     align-items: flex-start;
     gap: 12px;
+    margin-bottom: 8px;
   }
 
   .location {
@@ -109,11 +109,63 @@ export const cardStyles = css`
     opacity: 0.9;
   }
 
+  .primary {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+
+  .primary-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .primary-right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-end;
+  }
+
+  .condition {
+    font-size: 20px;
+    font-weight: 500;
+    opacity: 1;
+    margin: 0;
+    line-height: 1;
+  }
+
   .temperature {
-    font-size: 48px;
-    font-weight: 400;
+    font-size: 56px;
+    font-weight: 300;
     line-height: 1;
     margin: 0;
+  }
+
+  .feels-like {
+    font-size: 14px;
+    opacity: 0.75;
+    margin: 0;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .temp-range {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-top: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .temp-min {
+    font-size: 14px;
+    opacity: 0.7;
   }
 
   .details {
@@ -132,54 +184,6 @@ export const cardStyles = css`
 
   .details--clock .info-grid {
     flex: 1;
-  }
-
-  .condition {
-    font-size: 18px;
-    font-weight: 400;
-    opacity: 0.9;
-    margin-bottom: 8px;
-  }
-
-  .primary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    gap: 12px;
-  }
-
-  .primary-right {
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .primary-left {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .feels-like {
-    font-size: 15px;
-    opacity: 0.85;
-    margin-top: 4px;
-    font-weight: 400;
-  }
-
-  .temp-range {
-    font-size: 18px;
-    opacity: 0.9;
-    margin-top: 8px;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-  }
-
-  .temp-min {
-    font-size: 14px;
-    opacity: 0.7;
   }
 
   .info-grid {
