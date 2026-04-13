@@ -74,11 +74,9 @@ export class DailyForecast extends LitElement {
     return html`
               <div class="forecast-item">
                 <div class="forecast-day">${this.formatDayName(item.datetime)}</div>
-                <div class="forecast-day">${this.formatDayName(item.datetime)}</div>
                 <div style="font-size: 9px; color: #FF6B6B; background: rgba(0,0,0,0.3); padding: 2px 4px; border-radius: 3px;">
                   ${severeRisk ?? 'none'}
                 </div>
-                <div class="forecast-icon">${getWeatherConditionIcon(condition)}</div>
                 <div class="forecast-icon">${getWeatherConditionIcon(condition)}</div>
                 ${precipitation != null && precipitation > 0 ? html`
                   <div class="forecast-precip">${precipitation}%</div>
