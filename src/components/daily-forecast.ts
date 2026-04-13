@@ -76,8 +76,11 @@ export class DailyForecast extends LitElement {
     console.log('=== FORECAST DAY:', item.datetime, '===');
     console.log('Available properties:', Object.keys(item));
     console.log('Severerisk checks:', {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       direct: (item as any).severerisk,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       snake: (item as any).severe_risk,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       attrs: (item as any).attributes
     });
     console.log('Full item:', item);
