@@ -85,7 +85,7 @@ export const cardStyles = css`
   .content {
     position: relative;
     z-index: 1;
-    padding: 20px;
+    padding: 20px 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -110,8 +110,8 @@ export const cardStyles = css`
   }
 
   .temperature {
-    font-size: 56px;
-    font-weight: 300;
+    font-size: 48px;
+    font-weight: 400;
     line-height: 1;
     margin: 0;
   }
@@ -135,9 +135,10 @@ export const cardStyles = css`
   }
 
   .condition {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
     opacity: 0.9;
+    margin-bottom: 8px;
   }
 
   .primary {
@@ -145,6 +146,7 @@ export const cardStyles = css`
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 16px;
+    gap: 12px;  // <-- ADD THIS LINE
   }
 
   .primary-right {
@@ -160,10 +162,10 @@ export const cardStyles = css`
   }
 
   .feels-like {
-    font-size: 13px;
-    opacity: 0.8;
-    margin-top: 2px;
-    font-weight: 500;
+    font-size: 15px;
+    opacity: 0.85;
+    margin-top: 4px;
+    font-weight: 400;
   }
 
   .temp-range {

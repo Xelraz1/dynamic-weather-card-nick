@@ -1,0 +1,81 @@
+From: Claude AI <claude@anthropic.com>
+Date: Mon, 13 Apr 2026 19:00:00 -0400
+Subject: [PATCH] Fix layout and add severerisk debug display
+
+- Adjust temperature size to 48px (match reference image)
+- Increase feels-like font size to 15px
+- Add spacing and padding improvements
+- Add severerisk debug display to forecast cards
+- Reduce condition text size
+
+diff --git a/src/components/daily-forecast.ts b/src/components/daily-forecast.ts
+index 1234567..abcdefg 100644
+--- a/src/components/daily-forecast.ts
++++ b/src/components/daily-forecast.ts
+@@ -73,6 +73,9 @@ export class DailyForecast extends LitElement {
+             return html`
+               <div class="forecast-item">
+                 <div class="forecast-day">${this.formatDayName(item.datetime)}</div>
++                <div style="font-size: 9px; color: #FF6B6B; background: rgba(0,0,0,0.3); padding: 2px 4px; border-radius: 3px;">
++                  ${severeRisk ?? 'none'}
++                </div>
+                 <div class="forecast-icon">${getWeatherConditionIcon(condition)}</div>
+                 ${precipitation != null && precipitation > 0 ? html`
+                   <div class="forecast-precip">${precipitation}%</div>
+
+diff --git a/src/components/styles.ts b/src/components/styles.ts
+index 2345678..bcdefgh 100644
+--- a/src/components/styles.ts
++++ b/src/components/styles.ts
+@@ -37,7 +37,7 @@ export const cardStyles = css`
+   .content {
+     position: relative;
+     z-index: 2;
+-    padding: 24px;
++    padding: 20px 24px;
+     height: 100%;
+     display: flex;
+     flex-direction: column;
+@@ -78,6 +78,7 @@ export const cardStyles = css`
+     justify-content: space-between;
+     align-items: flex-start;
+     margin-bottom: 16px;
++    gap: 12px;
+   }
+ 
+   .primary-right {
+@@ -88,9 +89,9 @@ export const cardStyles = css`
+   }
+ 
+   .condition {
+-    font-size: 20px;
++    font-size: 18px;
+     font-weight: 500;
+     opacity: 0.9;
+-    margin-bottom: 4px;
++    margin-bottom: 8px;
+   }
+ 
+   .primary-left {
+@@ -100,16 +101,16 @@ export const cardStyles = css`
+   }
+ 
+   .temperature {
+-    font-size: 56px;
+-    font-weight: 300;
++    font-size: 48px;
++    font-weight: 400;
+     line-height: 1;
+     margin: 0;
+   }
+ 
+   .feels-like {
+-    font-size: 13px;
+-    opacity: 0.8;
+-    margin-top: 2px;
+-    font-weight: 500;
++    font-size: 15px;
++    opacity: 0.85;
++    margin-top: 4px;
++    font-weight: 400;
+   }

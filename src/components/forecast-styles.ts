@@ -133,15 +133,11 @@ export const forecastStyles = css`
   }
 
   .forecast-precip {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
-    color: #FFFFFF;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 2px 8px;
-    border-radius: 8px;
+    color: #0A84FF;
     margin-top: -4px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   .forecast-temps {
