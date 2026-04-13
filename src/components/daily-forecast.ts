@@ -1,7 +1,7 @@
 import { LitElement, html, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { getWeatherConditionIcon } from '../icons/svg-icons.js';
-import { formatForecastDay, setupHorizontalScroll } from '../utils.js';
+import { setupHorizontalScroll } from '../utils.js';
 import { i18n } from '../internationalization/index.js';
 import { forecastStyles } from './forecast-styles.js';
 import type { WeatherForecast } from '../types.js';
@@ -57,12 +57,12 @@ export class DailyForecast extends LitElement {
         <div class="forecast-title">${i18n.t('daily_forecast_title')}</div>
         <div class="forecast-scroll">
           ${this.forecast.map(item => {
-            const precipitation = this.getPrecipitation(item);
-            const condition = item.condition || 'sunny';
-            const highTemp = this.getHighTemp(item);
-            const lowTemp = this.getLowTemp(item);
-            
-            return html`
+    const precipitation = this.getPrecipitation(item);
+    const condition = item.condition || 'sunny';
+    const highTemp = this.getHighTemp(item);
+    const lowTemp = this.getLowTemp(item);
+
+    return html`
               <div class="forecast-item">
                 <div class="forecast-day">${this.formatDayName(item.datetime)}</div>
                 <div class="forecast-icon">${getWeatherConditionIcon(condition)}</div>
@@ -75,7 +75,7 @@ export class DailyForecast extends LitElement {
                 </div>
               </div>
             `;
-          })}
+  })}
         </div>
       </div>
     `;

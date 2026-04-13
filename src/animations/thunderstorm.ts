@@ -55,30 +55,30 @@ export class ThunderstormAnimation extends BaseAnimation {
   private createLightningBolt(width: number, height: number): LightningBolt {
     const startX = Math.random() * width;
     const startY = 0;
-    
+
     // Create jagged lightning path
     const segments: { x: number; y: number }[] = [{ x: startX, y: startY }];
     let currentX = startX;
     let currentY = startY;
     const targetY = height * (0.3 + Math.random() * 0.4);
     const numSegments = 6 + Math.floor(Math.random() * 4);
-    
+
     for (let i = 0; i < numSegments; i++) {
       const progress = (i + 1) / numSegments;
       currentY = startY + (targetY - startY) * progress;
       currentX += (Math.random() - 0.5) * 40;
-      
+
       // Keep within bounds
       currentX = Math.max(20, Math.min(width - 20, currentX));
-      
+
       segments.push({ x: currentX, y: currentY });
-      
+
       // Sometimes add a branch
       if (Math.random() > 0.7 && i < numSegments - 1) {
         const branchLength = 2 + Math.floor(Math.random() * 3);
         let branchX = currentX;
         let branchY = currentY;
-        
+
         for (let j = 0; j < branchLength; j++) {
           branchX += (Math.random() - 0.5) * 30;
           branchY += (targetY - startY) / numSegments * 0.5;
@@ -88,7 +88,7 @@ export class ThunderstormAnimation extends BaseAnimation {
         segments.push({ x: currentX, y: currentY });
       }
     }
-    
+
     return {
       x: startX,
       y: startY,
@@ -118,7 +118,7 @@ export class ThunderstormAnimation extends BaseAnimation {
     if (flashIntensity > 0.5 && currentTime - this.lastLightningTime > 0.3) {
       this.lightningBolts.push(this.createLightningBolt(width, height));
       this.lastLightningTime = currentTime;
-      
+
       // Sometimes create multiple bolts
       if (Math.random() > 0.7) {
         setTimeout(() => {
@@ -144,7 +144,7 @@ export class ThunderstormAnimation extends BaseAnimation {
 
       this.ctx.save();
       this.ctx.globalAlpha = bolt.opacity;
-      
+
       // Main bolt - bright white/yellow
       this.ctx.strokeStyle = '#FFE57F';
       this.ctx.lineWidth = 3;
@@ -155,11 +155,11 @@ export class ThunderstormAnimation extends BaseAnimation {
 
       this.ctx.beginPath();
       this.ctx.moveTo(bolt.segments[0].x, bolt.segments[0].y);
-      
+
       for (let i = 1; i < bolt.segments.length; i++) {
         this.ctx.lineTo(bolt.segments[i].x, bolt.segments[i].y);
       }
-      
+
       this.ctx.stroke();
 
       // Inner glow - white
@@ -170,11 +170,11 @@ export class ThunderstormAnimation extends BaseAnimation {
 
       this.ctx.beginPath();
       this.ctx.moveTo(bolt.segments[0].x, bolt.segments[0].y);
-      
+
       for (let i = 1; i < bolt.segments.length; i++) {
         this.ctx.lineTo(bolt.segments[i].x, bolt.segments[i].y);
       }
-      
+
       this.ctx.stroke();
 
       this.ctx.restore();
