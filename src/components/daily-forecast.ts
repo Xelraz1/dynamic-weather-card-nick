@@ -61,15 +61,20 @@ export class DailyForecast extends LitElement {
 
     // Check severerisk for this forecast day
     let condition = item.condition || 'sunny';
-    const severeRisk = (item as any).severerisk;
+
+    // Try multiple possible locations for severerisk
+    const severeRisk = (item as any).severerisk || 
+                      (item as any).severe_risk ||
+                      (item as any).attributes?.severerisk;
+
+    // Debug: show what we found
+    console.log('Forecast item:', item.datetime, 'condition:', condition, 'severerisk:', severeRisk);
 
     // Override to thunderstorm if high risk
     if (severeRisk != null && severeRisk > 20) {
       condition = 'lightning-rainy';
+      console.log('OVERRIDE to lightning-rainy for', item.datetime);
     }
-
-    const highTemp = this.getHighTemp(item);
-    const lowTemp = this.getLowTemp(item);
 
     return html`
               <div class="forecast-item">

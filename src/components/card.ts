@@ -280,10 +280,6 @@ export class AnimatedWeatherCard extends LitElement {
                 .format=${this.config.showClock && this.config.clockPosition === 'top' ? this.config.clockFormat : null}
               ></weather-clock>
             </div>
-              <weather-clock
-                .format=${this.config.showClock && this.config.clockPosition === 'top' ? this.config.clockFormat : null}
-              ></weather-clock>
-            </div>
             <div class="details ${this.config.showClock && this.config.clockPosition === 'details' ? 'details--clock' : ''}">
               <weather-details
                 .weather=${weather}
