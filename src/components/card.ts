@@ -261,14 +261,12 @@ export class AnimatedWeatherCard extends LitElement {
         <div class="${cardClasses}" style="min-height: ${minHeight}; ${bgStyle}; ${overlayStyle} cursor: pointer;">
           <div class="canvas-container"></div>
           <div class="content">
-            ${this.config.name && this.config.name.trim() !== '' ? html`
-              <div class="header">
-                <div class="location">${this.config.name}</div>
-              </div>
-            ` : ''}
             <div class="primary">
               <div class="primary-left">
                 <div class="condition">${i18n.t(weather.condition)}</div>
+                ${this.config.name && this.config.name.trim() !== '' ? html`
+                  <div class="location">${this.config.name}</div>
+                ` : ''}
               </div>
               <div class="primary-right">
                 <div class="temperature">${weather.temperature != null ? Math.round(weather.temperature) + '°' : i18n.t('no_data')}</div>
