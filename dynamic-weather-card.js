@@ -157,9 +157,9 @@ Please use the static 'html' tag function. See https://lit.dev/docs/templates/ex
   .primary {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 16px;
-    gap: 12px;  // <-- ADD THIS LINE
+    gap: 12px;
   }
 
   .primary-right {
