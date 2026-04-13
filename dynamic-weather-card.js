@@ -941,7 +941,7 @@ Please use the static 'html' tag function. See https://lit.dev/docs/templates/ex
       <div class="forecast-container">
         <div class="forecast-title">${_.t("daily_forecast_title")}</div>
         <div class="forecast-scroll">
-          ${this.forecast.map((o)=>{let i=this.getPrecipitation(o),a=this.getHighTemp(o),n=this.getLowTemp(o),l=o.condition||"sunny",s=o.severerisk||o.severe_risk||o.attributes?.severerisk;if(console.log("Forecast item:",o.datetime,"condition:",l,"severerisk:",s),s!=null&&s>20)l="lightning-rainy",console.log("OVERRIDE to lightning-rainy for",o.datetime);return e`
+          ${this.forecast.map((o)=>{let i=this.getPrecipitation(o),a=this.getHighTemp(o),n=this.getLowTemp(o),l=o.condition||"sunny",s=o.severerisk||o.severe_risk||o.attributes?.severerisk;if(console.log("=== FORECAST DAY:",o.datetime,"==="),console.log("Available properties:",Object.keys(o)),console.log("Severerisk checks:",{direct:o.severerisk,snake:o.severe_risk,attrs:o.attributes}),console.log("Full item:",o),s!=null&&s>20)l="lightning-rainy",console.log("✓ OVERRIDE to lightning for",o.datetime,"severerisk:",s);return e`
               <div class="forecast-item">
                 <div class="forecast-day">${this.formatDayName(o.datetime)}</div>
                 <div style="font-size: 9px; color: #FF6B6B; background: rgba(0,0,0,0.3); padding: 2px 4px; border-radius: 3px;">
@@ -984,9 +984,10 @@ Please use the static 'html' tag function. See https://lit.dev/docs/templates/ex
                   <div class="feels-like">${_.t("feels_like")} ${o.apparentTemperature!=null?`${Math.round(o.apparentTemperature)}°`:_.t("no_data")}</div>
                 `:""}
               </div>
-              <weather-clock
-                .format=${this.config.showClock&&this.config.clockPosition==="top"?this.config.clockFormat:null}
-              ></weather-clock>
+            </div>
+            <weather-clock
+              .format=${this.config.showClock&&this.config.clockPosition==="top"?this.config.clockFormat:null}
+            ></weather-clock>
             </div>
             <div class="details ${this.config.showClock&&this.config.clockPosition==="details"?"details--clock":""}">
               <weather-details
