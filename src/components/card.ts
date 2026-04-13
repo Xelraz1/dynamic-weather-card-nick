@@ -276,9 +276,10 @@ export class AnimatedWeatherCard extends LitElement {
                   <div class="feels-like">${i18n.t('feels_like')} ${weather.apparentTemperature != null ? `${Math.round(weather.apparentTemperature)}°` : i18n.t('no_data')}</div>
                 ` : ''}
               </div>
-              <weather-clock
-                .format=${this.config.showClock && this.config.clockPosition === 'top' ? this.config.clockFormat : null}
-              ></weather-clock>
+            </div>
+            <weather-clock
+              .format=${this.config.showClock && this.config.clockPosition === 'top' ? this.config.clockFormat : null}
+            ></weather-clock>
             </div>
             <div class="details ${this.config.showClock && this.config.clockPosition === 'details' ? 'details--clock' : ''}">
               <weather-details
