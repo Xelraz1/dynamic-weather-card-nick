@@ -28,8 +28,15 @@ export function getWeatherData(
   const state = getWeatherState(hass, entityId);
   const attrs = getWeatherAttributes(hass, entityId);
 
-  const condition = attrs.condition || state || 'sunny';
-
+   // Check severerisk first for thunderstorm detection
+   let condition = attrs.condition || state || 'sunny';
+   const severeRisk = attrs.severerisk as number | undefined;
+   
+   // If severerisk > 20, override condition to show thunderstorm
+   // This catches Visual Crossing's "storms possible" scenarios
+   if (severeRisk != null && severeRisk > 20) {
+     condition = 'lightning-rainy';
+   }
   let templow: number | null = null;
 
   if (config.templowAttribute && attrs[config.templowAttribute] != null) {
