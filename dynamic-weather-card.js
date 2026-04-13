@@ -973,14 +973,12 @@ Please use the static 'html' tag function. See https://lit.dev/docs/templates/ex
         <div class="${l}" style="min-height: ${s}; ${c}; ${g} cursor: pointer;">
           <div class="canvas-container"></div>
           <div class="content">
-            ${this.config.name&&this.config.name.trim()!==""?e`
-              <div class="header">
-                <div class="location">${this.config.name}</div>
-              </div>
-            `:""}
             <div class="primary">
               <div class="primary-left">
                 <div class="condition">${_.t(o.condition)}</div>
+                ${this.config.name&&this.config.name.trim()!==""?e`
+                  <div class="location">${this.config.name}</div>
+                `:""}
               </div>
               <div class="primary-right">
                 <div class="temperature">${o.temperature!=null?Math.round(o.temperature)+"°":_.t("no_data")}</div>
