@@ -58,7 +58,16 @@ export class DailyForecast extends LitElement {
         <div class="forecast-scroll">
           ${this.forecast.map(item => {
     const precipitation = this.getPrecipitation(item);
-    const condition = item.condition || 'sunny';
+
+    // Check severerisk for this forecast day
+    let condition = item.condition || 'sunny';
+    const severeRisk = (item as any).severerisk;
+
+    // Override to thunderstorm if high risk
+    if (severeRisk != null && severeRisk > 20) {
+      condition = 'lightning-rainy';
+    }
+
     const highTemp = this.getHighTemp(item);
     const lowTemp = this.getLowTemp(item);
 
