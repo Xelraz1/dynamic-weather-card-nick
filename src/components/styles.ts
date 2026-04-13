@@ -104,15 +104,18 @@ export const cardStyles = css`
   }
 
   .location {
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 400;
     opacity: 0.9;
+    margin-top: 2px;
+    line-height: 1;
+
   }
 
   .primary {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-start;
     margin-bottom: 8px;
     gap: 8px;
   }
@@ -132,7 +135,7 @@ export const cardStyles = css`
   }
 
   .condition {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 500;
     opacity: 1;
     margin: 0;

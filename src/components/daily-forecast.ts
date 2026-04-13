@@ -60,43 +60,11 @@ export class DailyForecast extends LitElement {
     const precipitation = this.getPrecipitation(item);
     const highTemp = this.getHighTemp(item);
     const lowTemp = this.getLowTemp(item);
-
-    // Check severerisk for this forecast day
-    let condition = item.condition || 'sunny';
-
-    // Try multiple possible locations for severerisk
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const severeRisk = (item as any).severerisk ||
-                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                   (item as any).severe_risk ||
-                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                   (item as any).attributes?.severerisk;
-
-    // Debug: log what we're seeing
-    console.log('=== FORECAST DAY:', item.datetime, '===');
-    console.log('Available properties:', Object.keys(item));
-    console.log('Severerisk checks:', {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      direct: (item as any).severerisk,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      snake: (item as any).severe_risk,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      attrs: (item as any).attributes
-    });
-    console.log('Full item:', item);
-
-    // Override to thunderstorm if high risk
-    if (severeRisk != null && severeRisk > 20) {
-      condition = 'lightning-rainy';
-      console.log('✓ OVERRIDE to lightning for', item.datetime, 'severerisk:', severeRisk);
-    }
+    const condition = item.condition || 'sunny';
 
     return html`
               <div class="forecast-item">
                 <div class="forecast-day">${this.formatDayName(item.datetime)}</div>
-                <div style="font-size: 9px; color: #FF6B6B; background: rgba(0,0,0,0.3); padding: 2px 4px; border-radius: 3px;">
-                  ${severeRisk ?? 'none'}
-                </div>
                 <div class="forecast-icon">${getWeatherConditionIcon(condition)}</div>
                 ${precipitation != null && precipitation > 0 ? html`
                   <div class="forecast-precip">${precipitation}%</div>
