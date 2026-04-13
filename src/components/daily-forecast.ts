@@ -72,13 +72,20 @@ export class DailyForecast extends LitElement {
                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                    (item as any).attributes?.severerisk;
 
-    // Debug: show what we found
-    console.log('Forecast item:', item.datetime, 'condition:', condition, 'severerisk:', severeRisk);
+    // Debug: log what we're seeing
+    console.log('=== FORECAST DAY:', item.datetime, '===');
+    console.log('Available properties:', Object.keys(item));
+    console.log('Severerisk checks:', {
+      direct: (item as any).severerisk,
+      snake: (item as any).severe_risk,
+      attrs: (item as any).attributes
+    });
+    console.log('Full item:', item);
 
     // Override to thunderstorm if high risk
     if (severeRisk != null && severeRisk > 20) {
       condition = 'lightning-rainy';
-      console.log('OVERRIDE to lightning-rainy for', item.datetime);
+      console.log('✓ OVERRIDE to lightning for', item.datetime, 'severerisk:', severeRisk);
     }
 
     return html`
