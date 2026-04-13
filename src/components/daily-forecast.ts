@@ -58,14 +58,19 @@ export class DailyForecast extends LitElement {
         <div class="forecast-scroll">
           ${this.forecast.map(item => {
     const precipitation = this.getPrecipitation(item);
+    const highTemp = this.getHighTemp(item);
+    const lowTemp = this.getLowTemp(item);
 
     // Check severerisk for this forecast day
     let condition = item.condition || 'sunny';
 
     // Try multiple possible locations for severerisk
-    const severeRisk = (item as any).severerisk || 
-                      (item as any).severe_risk ||
-                      (item as any).attributes?.severerisk;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const severeRisk = (item as any).severerisk ||
+                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                   (item as any).severe_risk ||
+                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                   (item as any).attributes?.severerisk;
 
     // Debug: show what we found
     console.log('Forecast item:', item.datetime, 'condition:', condition, 'severerisk:', severeRisk);
