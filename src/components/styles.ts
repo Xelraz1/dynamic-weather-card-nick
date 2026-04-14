@@ -104,7 +104,7 @@ export const cardStyles = css`
   }
 
   .location {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
     opacity: 0.9;
     margin-top: 2px;
