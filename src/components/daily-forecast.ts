@@ -66,13 +66,13 @@ export class DailyForecast extends LitElement {
               <div class="forecast-item">
                 <div class="forecast-day">${this.formatDayName(item.datetime)}</div>
                 <div class="forecast-icon">${getWeatherConditionIcon(condition)}</div>
-                ${precipitation != null && precipitation > 0 ? html`
-                  <div class="forecast-precip">${precipitation}%</div>
-                ` : html``}
                 <div class="forecast-temps">
                   <span class="temp-high">${highTemp}°</span>
                   <span class="temp-low">${lowTemp}°</span>
                 </div>
+                ${precipitation != null && precipitation > 0 ? html`
+                  <div class="forecast-precip">${precipitation}%</div>
+                ` : html``}
               </div>
             `;
   })}
@@ -83,3 +83,4 @@ export class DailyForecast extends LitElement {
 }
 
 customElements.define('daily-forecast', DailyForecast);
+

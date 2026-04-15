@@ -38,15 +38,15 @@ export class ThunderstormAnimation extends BaseAnimation {
     // Dark clouds
     this.drawClouds(currentTime, width, height, 1.0);
 
-    // Rain if specified
-    if (withRain) {
-      this.rainyAnimation.draw(time, width, height, timeOfDay, false);
-    }
-
     // Lightning effects
     this.updateLightningBolts(width, height, currentTime);
     this.drawLightningBolts();
     this.drawLightningFlash(width, height, currentTime);
+
+    // Rain if specified (draw LAST so it's on top)
+    if (withRain) {
+      this.rainyAnimation.draw(time, width, height, timeOfDay, true);
+    }
   }
 
   /**

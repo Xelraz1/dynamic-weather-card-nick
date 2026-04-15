@@ -10,10 +10,9 @@ export const forecastStyles = css`
   }
 
   .forecast-container {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 12px;
+    padding-top: 0;
     padding-bottom: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
     width: 100%;
   }
 
@@ -24,6 +23,7 @@ export const forecastStyles = css`
     margin-bottom: 16px;
     text-transform: uppercase;
     letter-spacing: 0.8px;
+    display: none;
   }
 
   .forecast-scroll {
@@ -67,7 +67,7 @@ export const forecastStyles = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     padding: 12px 8px;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 12px;
