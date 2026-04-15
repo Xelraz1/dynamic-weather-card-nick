@@ -45,6 +45,7 @@ export class ThunderstormAnimation extends BaseAnimation {
 
     // Rain if specified (draw LAST so it's on top)
     if (withRain) {
+      console.log('Drawing heavy rain in thunderstorm');
       this.rainyAnimation.draw(time, width, height, timeOfDay, true);
     }
   }
