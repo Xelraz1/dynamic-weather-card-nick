@@ -34,3 +34,172 @@ export class AnimationManager {
       this.startAnimation();
     }
   };
+
+  constructor(getDrawParams: () => { condition: string; timeOfDay: TimeOfDay } | null) {
+    this.getDrawParams = getDrawParams;
+  }
+
+  setup(container: Element): void {
+    this.container = container;
+    this.setupCanvas();
+    if (this.canvas && this.ctx) {
+      this.initializeAnimations();
+      this.startAnimation();
+      this.setupResizeObserver();
+      document.addEventListener('visibilitychange', this.handleVisibilityChange);
+    }
+  }
+
+  destroy(): void {
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+    this.stopAnimation();
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+    this.canvas = null;
+    this.ctx = null;
+    this.container = null;
+  }
+
+  resize(): void {
+    if (this.canvas && this.ctx) {
+      this.resizeCanvas();
+    }
+  }
+
+  private setupCanvas(): void {
+    if (!this.container) return;
+
+    const oldCanvas = this.container.querySelector('canvas');
+    if (oldCanvas) {
+      oldCanvas.remove();
+    }
+
+    this.canvas = document.createElement('canvas');
+    this.container.appendChild(this.canvas);
+    this.resizeCanvas();
+  }
+
+  private resizeCanvas(): void {
+    if (!this.canvas || !this.container) return;
+
+    const rect = this.container.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+
+    const dpr = window.devicePixelRatio || 2;
+    this.canvas.width = rect.width * dpr;
+    this.canvas.height = rect.height * dpr;
+    this.canvas.style.width = '100%';
+    this.canvas.style.height = '100%';
+
+    this.ctx = this.canvas.getContext('2d');
+    if (this.ctx) {
+      this.ctx.scale(dpr, dpr);
+    }
+
+    this.width = rect.width;
+    this.height = rect.height;
+
+    this.initializeAnimations();
+  }
+
+  private setupResizeObserver(): void {
+    if (!this.container) return;
+
+    this.resizeObserver = new ResizeObserver(() => {
+      this.resizeCanvas();
+    });
+    this.resizeObserver.observe(this.container);
+  }
+
+  private initializeAnimations(): void {
+    if (!this.ctx) return;
+
+    this.animations = {
+      sunny: new SunnyAnimation(this.ctx),
+      rainy: new RainyAnimation(this.ctx),
+      snowy: new SnowyAnimation(this.ctx),
+      cloudy: new CloudyAnimation(this.ctx),
+      foggy: new FoggyAnimation(this.ctx),
+      hail: new HailAnimation(this.ctx),
+      thunderstorm: new ThunderstormAnimation(this.ctx)
+    };
+  }
+
+  private startAnimation(): void {
+    if (this.animationFrame) return;
+    const animate = () => {
+      this.draw();
+      this.animationFrame = requestAnimationFrame(animate);
+    };
+    animate();
+  }
+
+  private stopAnimation(): void {
+    if (this.animationFrame) {
+      cancelAnimationFrame(this.animationFrame);
+      this.animationFrame = null;
+    }
+  }
+
+  private draw(): void {
+    if (!this.ctx || !this.canvas) return;
+    if (!this.width || !this.height) {
+      this.resizeCanvas();
+      if (!this.width || !this.height) return;
+    }
+
+    const params = this.getDrawParams();
+    if (!params) return;
+
+    const { condition, timeOfDay } = params;
+    const width = this.width;
+    const height = this.height;
+
+    this.ctx.clearRect(0, 0, width, height);
+
+    const conditionLower = condition.toLowerCase();
+
+    switch (conditionLower) {
+      case 'sunny':
+      case 'clear':
+        this.animations.sunny?.draw(Date.now(), width, height, timeOfDay);
+        break;
+      case 'clear-night':
+        this.animations.sunny?.draw(Date.now(), width, height, { type: 'night', progress: 0 });
+        break;
+      case 'rainy':
+      case 'rain':
+        this.animations.rainy?.draw(Date.now(), width, height, timeOfDay, false);
+        break;
+      case 'pouring':
+        this.animations.rainy?.draw(Date.now(), width, height, timeOfDay, true);
+        break;
+      case 'snowy':
+      case 'snow':
+        this.animations.snowy?.draw(Date.now(), width, height, timeOfDay);
+        break;
+      case 'snowy-rainy':
+        this.animations.rainy?.draw(Date.now(), width, height, timeOfDay, false);
+        this.animations.snowy?.draw(Date.now(), width, height, timeOfDay);
+        break;
+      case 'hail':
+        this.animations.hail?.draw(Date.now(), width, height, timeOfDay);
+        break;
+      case 'foggy':
+      case 'fog':
+        this.animations.foggy?.draw(Date.now(), width, height, timeOfDay);
+        break;
+      case 'lightning':
+      case 'lightning-rainy':
+        this.animations.thunderstorm?.draw(Date.now(), width, height, timeOfDay, true);
+        break;
+      case 'cloudy':
+      case 'partlycloudy':
+      default:
+        this.animations.cloudy?.draw(Date.now(), width, height, timeOfDay);
+        break;
+    }
+  }
+}
